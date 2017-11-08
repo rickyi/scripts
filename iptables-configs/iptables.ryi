@@ -27,39 +27,22 @@ COMMIT
 -A INPUT -p tcp -m tcp -m state --dport 10000 --state NEW -j ACCEPT
 -A INPUT -p tcp -m tcp -m state --dport 5001:5003 --state NEW -j ACCEPT
 -A INPUT -p tcp -m tcp -m state --dport 8001:8003 --state NEW -j ACCEPT
+-A INPUT -p tcp -m tcp -m state --dport 8555:8557 --state NEW -j ACCEPT
 -A FORWARD -p icmp -j ACCEPT
 -A FORWARD -i lo -j ACCEPT
 -A FORWARD -i tun0 -j ACCEPT
 -A FORWARD -i pptp+ -j ACCEPT
--A FORWARD -i em2 -o em1* -m state --state RELATED,ESTABLISHED -j ACCEPT
--A FORWARD -i em1* -o em2 -j ACCEPT
-#-A FORWARD -i em1 -j ACCEPT
-#-A FORWARD -i em1.20 -j ACCEPT
-#-A FORWARD -i em1.30 -j ACCEPT
-#-A FORWARD -i em1.40 -j ACCEPT
-#-A FORWARD -i em1.50 -j ACCEPT
+-A FORWARD -i em2 -o em1+ -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -i em1+ -o em2 -j ACCEPT
 -A FORWARD -p tcp -m tcp -m state -d 192.168.0.156/32 -i em2 --dport 5001 --state NEW -j ACCEPT
-
--A FORWARD -d 192.168.0.156/32 -o em1 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.156/32 -o em1.20 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.156/32 -o em1.30 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.156/32 -o em1.40 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.156/32 -o em1.50 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.166/32 -o em1 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.166/32 -o em1.20 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.166/32 -o em1.30 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.166/32 -o em1.40 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.166/32 -o em1.50 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.176/32 -o em1 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.176/32 -o em1.20 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.176/32 -o em1.30 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.176/32 -o em1.40 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -d 192.168.0.176/32 -o em1.50 -p tcp -m tcp --dport 5001:5003 -j ACCEPT
--A FORWARD -m conntrack -i em2 -o em1 -j ACCEPT  --ctstate RELATED,ESTABLISHED
--A FORWARD -m conntrack -i em2 -o em1.20 -j ACCEPT  --ctstate RELATED,ESTABLISHED
--A FORWARD -m conntrack -i em2 -o em1.30 -j ACCEPT  --ctstate RELATED,ESTABLISHED
--A FORWARD -m conntrack -i em2 -o em1.40 -j ACCEPT  --ctstate RELATED,ESTABLISHED
--A FORWARD -m conntrack -i em2 -o em1.50 -j ACCEPT  --ctstate RELATED,ESTABLISHED
+-A FORWARD -p tcp -m tcp -m state -d 192.168.0.156/32 -i em2 --dport 8001 --state NEW -j ACCEPT
+-A FORWARD -p tcp -m tcp -m state -d 192.168.0.156/32 -i em2 --dport 8555 --state NEW -j ACCEPT
+-A FORWARD -p tcp -m tcp -m state -d 192.168.0.166/32 -i em2 --dport 5002 --state NEW -j ACCEPT
+-A FORWARD -p tcp -m tcp -m state -d 192.168.0.166/32 -i em2 --dport 8002 --state NEW -j ACCEPT
+-A FORWARD -p tcp -m tcp -m state -d 192.168.0.166/32 -i em2 --dport 8556 --state NEW -j ACCEPT
+-A FORWARD -p tcp -m tcp -m state -d 192.168.0.176/32 -i em2 --dport 5003 --state NEW -j ACCEPT
+-A FORWARD -p tcp -m tcp -m state -d 192.168.0.176/32 -i em2 --dport 8003 --state NEW -j ACCEPT
+-A FORWARD -p tcp -m tcp -m state -d 192.168.0.176/32 -i em2 --dport 8557 --state NEW -j ACCEPT
 -A FORWARD -j LOG
 COMMIT
 # Completed on Mon Feb 22 08:54:39 2016
