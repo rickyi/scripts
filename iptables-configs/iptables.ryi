@@ -7,19 +7,25 @@
 -A PREROUTING -i em2 -p tcp -m tcp --dport 5001 -j DNAT --to-destination 192.168.0.156:5001
 -A PREROUTING -i em2 -p tcp -m tcp --dport 5002 -j DNAT --to-destination 192.168.0.166:5002
 -A PREROUTING -i em2 -p tcp -m tcp --dport 5003 -j DNAT --to-destination 192.168.0.176:5003
+-A PREROUTING -i em2 -p tcp -m tcp --dport 8001 -j DNAT --to-destination 192.168.0.156:8001
+-A PREROUTING -i em2 -p tcp -m tcp --dport 8002 -j DNAT --to-destination 192.168.0.166:8002
+-A PREROUTING -i em2 -p tcp -m tcp --dport 8003 -j DNAT --to-destination 192.168.0.176:8003
+-A PREROUTING -i em2 -p tcp -m tcp --dport 8555 -j DNAT --to-destination 192.168.0.156:8555
+-A PREROUTING -i em2 -p tcp -m tcp --dport 8556 -j DNAT --to-destination 192.168.0.166:8556
+-A PREROUTING -i em2 -p tcp -m tcp --dport 8557 -j DNAT --to-destination 192.168.0.176:8557
 -A PREROUTING -i em2 -p tcp -m tcp --dport 5022 -j DNAT --to-destination 192.168.27.50:22
--A POSTROUTING -o em2 -j MASQUERADE
+-A POSTROUTING -o em+ -j MASQUERADE
 COMMIT
 *filter
 :OUTPUT ACCEPT [0:0]
 :INPUT DROP [0:0]
 :FORWARD DROP [0:0]
--A INPUT -i em+ -p udp -m udp -m state --dport 5353 --state NEW -j DROP
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
 -A INPUT -i lo -j ACCEPT
 -A INPUT -i tun0 -j ACCEPT
 -A INPUT -i em+ -j ACCEPT
+-A INPUT -i em+ -p udp -m udp -m state --dport 5353 --state NEW -j DROP
 -A INPUT -p udp -m udp -m state --dport 1194 --state NEW -j ACCEPT
 -A INPUT -p tcp -m tcp -m state --dport 22 --state NEW -j ACCEPT
 -A INPUT -p tcp -m tcp -m state --dport 10000 --state NEW -j ACCEPT
